@@ -87,7 +87,7 @@
 </head>
 <body>
   <div class="form-container">
-    <h2>Material Request</h2>
+    <h2>Issue stock taken!</h2>
     <form id="requestForm">
       <label for="sap">SAP Number:</label>
       <input type="text" id="sap" name="sap" required />
@@ -101,8 +101,8 @@
       <label for="issueTo">Issue To:</label>
       <input type="text" id="issueTo" name="issueTo" required />
 
-      <label for="photo">Upload a Photo (Take from Camera):</label>
-      <input type="file" id="photo" name="photo" accept="image/*" capture="camera" />
+       <label for="location">Issue To:</label>
+      <input type="text" id="issueTo" name="location" required />
 
       <button type="button" onclick="sendEmail()">Email to Rig Manager</button>
     </form>
@@ -118,19 +118,17 @@
 
       // Check if the form fields are filled out
       if (!sap || !desc || !qty || !issueTo) {
-        alert("Please fill out all fields.");
+        alert("Please fill out all fields ya dawg!.");
         return;
       }
 
-      const subject = encodeURIComponent("Material Request");
+      const subject = encodeURIComponent("stock taken from sea can");
       const body = encodeURIComponent(
         `SAP Number: ${sap}\nDescription: ${desc}\nQuantity: ${qty}\nIssue To: ${issueTo}`
       );
 
       // If a photo is selected, append it to the body message
-      if (photo) {
-        body += `\n\nAttached Photo: ${photo.name}`; // Just a placeholder for name, no actual attachment with mailto
-      }
+     
 
       window.location.href = `mailto:r30rigmanager@ventia.com?subject=${subject}&body=${body}`;
     }
