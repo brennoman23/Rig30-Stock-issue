@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rig Manager Request</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f7f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      margin: 0;
+      min-height: 100vh;
+    }
+
+    .form-container {
+      background-color: #fff;
+      padding: 25px 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 450px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 1.6em;
+      color: #333;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: bold;
+      color: #444;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+      width: 100%;
+      padding: 12px;
+      font-size: 1em;
+      margin-bottom: 18px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      font-size: 1em;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    @media (max-width: 480px) {
+      .form-container {
+        padding: 20px 15px;
+      }
+
+      h2 {
+        font-size: 1.4em;
+      }
+
+      input, button {
+        font-size: 1em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h2>Material Request</h2>
+    <form id="requestForm">
+      <label for="sap">SAP Number:</label>
+      <input type="text" id="sap" name="sap" required />
+
+      <label for="desc">Description:</label>
+      <input type="text" id="desc" name="desc" required />
+
+      <label for="qty">Quantity:</label>
+      <input type="number" id="qty" name="qty" required />
+
+      <label for="issueTo">Issue To:</label>
+      <input type="text" id="issueTo" name="issueTo" required />
+
+      <button type="button" onclick="sendEmail()">Email to Rig Manager</button>
+    </form>
+  </div>
+
+  <script>
+    function sendEmail() {
+      const sap = document.getElementById("sap").value.trim();
+      const desc = document.getElementById("desc").value.trim();
+      const qty = document.getElementById("qty").value.trim();
+      const issueTo = document.getElementById("issueTo").value.trim();
+
+      const subject = encodeURIComponent("Material Request");
+      const body = encodeURIComponent(
+        `SAP Number: ${sap}\nDescription: ${desc}\nQuantity: ${qty}\nIssue To: ${issueTo}`
+      );
+
+      window.location.href = `mailto:r30rigmanager@ventia.com?subject=${subject}&body=${body}`;
+    }
+  </script>
+</body>
+</html>
