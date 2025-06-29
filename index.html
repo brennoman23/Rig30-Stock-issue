@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -44,7 +44,8 @@
     }
 
     input[type="text"],
-    input[type="number"] {
+    input[type="number"],
+    input[type="file"] {
       width: 100%;
       padding: 12px;
       font-size: 1em;
@@ -100,6 +101,9 @@
       <label for="issueTo">Issue To:</label>
       <input type="text" id="issueTo" name="issueTo" required />
 
+      <label for="photo">Upload a Photo (Take from Camera):</label>
+      <input type="file" id="photo" name="photo" accept="image/*" capture="camera" />
+
       <button type="button" onclick="sendEmail()">Email to Rig Manager</button>
     </form>
   </div>
@@ -110,11 +114,23 @@
       const desc = document.getElementById("desc").value.trim();
       const qty = document.getElementById("qty").value.trim();
       const issueTo = document.getElementById("issueTo").value.trim();
+      const photo = document.getElementById("photo").files[0]; // Get the file from the input
+
+      // Check if the form fields are filled out
+      if (!sap || !desc || !qty || !issueTo) {
+        alert("Please fill out all fields.");
+        return;
+      }
 
       const subject = encodeURIComponent("Material Request");
       const body = encodeURIComponent(
         `SAP Number: ${sap}\nDescription: ${desc}\nQuantity: ${qty}\nIssue To: ${issueTo}`
       );
+
+      // If a photo is selected, append it to the body message
+      if (photo) {
+        body += `\n\nAttached Photo: ${photo.name}`; // Just a placeholder for name, no actual attachment with mailto
+      }
 
       window.location.href = `mailto:r30rigmanager@ventia.com?subject=${subject}&body=${body}`;
     }
